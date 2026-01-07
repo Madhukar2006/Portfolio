@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madhukar | Portfolio</title>
+<meta name="description" content="Portfolio of Madhukar - B.Tech CSE Student & Developer">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ================= VARIABLES ================= */
+:root {
+    /* LIGHT MODE (Now Default) */
+    --bg: #f8fafc;
+    --nav-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --accent: #4f46e5;
+    --accent-glow: rgba(79, 70, 229, 0.3);
+    --border: 1px solid rgba(0, 0, 0, 0.1);
+    --gradient: linear-gradient(135deg, #4f46e5, #0ea5e9);
+}
+
+[data-theme="dark"] {
+    /* DARK MODE (Toggle) */
+    --bg: #050505;
+    --nav-bg: rgba(5, 5, 5, 0.85);
+    --card-bg: rgba(20, 20, 25, 0.6);
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
+    --accent: #8b5cf6; /* Violet */
+    --accent-glow: rgba(139, 92, 246, 0.5);
+    --border: 1px solid rgba(255, 255, 255, 0.1);
+    --gradient: linear-gradient(135deg, #8b5cf6, #3b82f6);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    transition: 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Canvas Background */
+canvas#bg-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; pointer-events: none;
+}
+
+/* Utilities */
+section { padding: 100px 8%; max-width: 1400px; margin: auto; }
+.section-title { font-size: 2.5rem; text-align: center; margin-bottom: 60px; font-weight: 700; }
+.section-title span { 
+    background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    position: relative;
+}
+.section-title span::after {
+    content: ''; display: block; width: 60px; height: 4px; background: var(--accent);
+    margin: 5px auto 0; border-radius: 2px;
+}
+
+.btn {
+    padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600;
+    transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; font-size: 1rem;
+}
+.btn-primary { background: var(--gradient); color: white; box-shadow: 0 5px 20px var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px var(--accent-glow); }
+.btn-outline { border: 2px solid var(--accent); color: var(--text-main); background: transparent; }
+.btn-outline:hover { background: var(--accent); color: white; }
+
+/* Scroll Animation */
+.reveal { opacity: 0; transform: translateY(40px); transition: 1s ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* ================= NAV ================= */
+nav {
+    position: fixed; top: 0; width: 100%; padding: 15px 8%; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--nav-bg); backdrop-filter: blur(15px);
+    border-bottom: var(--border);
+}
+.logo { font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: 1px; }
+.nav-links { display: flex; gap: 30px; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; transition: 0.3s; position: relative; }
+.nav-links a:hover { color: var(--accent); }
+.theme-toggle { cursor: pointer; font-size: 1.3rem; transition: 0.3s; color: var(--text-main); }
+.theme-toggle:hover { color: var(--accent); transform: rotate(20deg); }
+
+/* ================= HERO (MORPHING IMAGE) ================= */
+.hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
+    padding-top: 80px; gap: 50px;
+}
+.hero-content { max-width: 600px; }
+.hero h1 { font-size: 3.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 15px; }
+.hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6; }
+.typing { color: var(--accent); font-weight: 600; font-size: 1.5rem; }
+
+.hero-img-box {
+    width: 400px; height: 400px; position: relative;
+    background: var(--gradient);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morph 8s ease-in-out infinite;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden;
+    box-shadow: 0 0 60px var(--accent-glow);
+}
+.hero-img-box img { 
+    width: 95%; height: 95%; object-fit: cover; 
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morph 8s ease-in-out infinite;
+}
+@keyframes morph {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+/* ================= JOURNEY (FLOW CHART) ================= */
+.roadmap {
+    position: relative; max-width: 900px; margin: auto;
+    padding: 20px 0;
+}
+/* The central line */
+.roadmap::before {
+    content: ''; position: absolute; left: 50px; top: 0; bottom: 0;
+    width: 4px; background: var(--border); border-radius: 2px;
+}
+/* Active line part (gradient) */
+.roadmap::after {
+    content: ''; position: absolute; left: 50px; top: 0; height: 100%;
+    width: 4px; background: linear-gradient(to bottom, var(--accent), transparent);
+    border-radius: 2px; opacity: 0.5;
+}
+
+.roadmap-item {
+    display: flex; gap: 40px; margin-bottom: 50px; position: relative; align-items: flex-start;
+}
+/* Node dot */
+.roadmap-dot {
+    width: 20px; height: 20px; background: var(--bg);
+    border: 4px solid var(--accent); border-radius: 50%;
+    position: absolute; left: 42px; top: 0; z-index: 2;
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+/* Content Card */
+.roadmap-content {
+    background: var(--card-bg); border: var(--border);
+    padding: 25px; border-radius: 15px; width: 100%; margin-left: 80px;
+    position: relative; transition: 0.3s;
+    backdrop-filter: blur(10px);
+}
+.roadmap-content:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+/* Arrow pointing to dot */
+.roadmap-content::before {
+    content: ''; position: absolute; left: -10px; top: 20px;
+    width: 20px; height: 2px; background: var(--accent);
+}
+
+.r-date { font-size: 0.85rem; background: var(--accent-glow); padding: 4px 12px; border-radius: 20px; color: white; display: inline-block; margin-bottom: 10px; }
+.r-title { font-size: 1.3rem; margin-bottom: 5px; color: var(--text-main); }
+.r-org { font-size: 1rem; color: var(--accent); font-weight: 500; margin-bottom: 10px; display: block; }
+
+/* ================= SKILLS (MODIFIED) ================= */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.skill-box {
+    background: var(--card-bg); padding: 30px; border-radius: 20px; border: var(--border);
+    transition: 0.3s;
+}
+.skill-box:hover { border-color: var(--accent); transform: translateY(-5px); }
+.skill-box h3 { 
+    color: var(--accent); margin-bottom: 20px; font-size: 1.3rem; 
+    border-bottom: 1px solid var(--border); padding-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+}
+
+.tech-container { display: flex; flex-wrap: wrap; gap: 15px; }
+.tech-item {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 70px; height: 75px; background: rgba(125, 125, 125, 0.05); /* Slight adjustment for light mode visibility */
+    border-radius: 12px; transition: 0.3s; cursor: default;
+    border: var(--border);
+}
+.tech-item:hover { background: var(--accent-glow); transform: scale(1.1); border-color: transparent; }
+.tech-item i { font-size: 2rem; margin-bottom: 5px; }
+.tech-item span { font-size: 0.75rem; color: var(--text-muted); }
+
+/* ========/* ================= PROJECTS (MODIFIED) ================= */
+.project-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 40px; 
+}
+
+.p-card {
+    background: var(--card-bg); 
+    border-radius: 20px; 
+    overflow: hidden;
+    border: var(--border); 
+    transition: 0.4s ease;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Hover Lift Effect */
+.p-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+    border-color: var(--accent);
+}
+
+.p-img-box { 
+    height: 200px; 
+    overflow: hidden; 
+    position: relative; 
+    background: var(--bg);
+}
+
+.p-img-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
+
+/* Image Zoom on Hover */
+.p-card:hover .p-img-box img { 
+    transform: scale(1.1); 
+}
+
+/* Dark Overlay on Hover */
+.p-img-box::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    opacity: 0; transition: 0.3s;
+}
+.p-card:hover .p-img-box::after { opacity: 1; }
+
+.p-details { 
+    padding: 25px; 
+    display: flex; 
+    flex-direction: column; 
+    height: calc(100% - 200px); /* Fill remaining height */
+}
+
+/* Floating Icon Top Right */
+.p-icon {
+    position: absolute; top: 15px; right: 15px;
+    background: var(--card-bg); padding: 8px 12px;
+    border-radius: 50px; font-size: 0.9rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 2; color: var(--accent);
+}
+
+.p-tags { 
+    margin-bottom: 15px; 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+}
+
+.tag { 
+    font-size: 0.7rem; 
+    padding: 5px 12px; 
+    background: var(--accent-glow); 
+    color: var(--accent); 
+    border-radius: 50px; 
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: 1px solid transparent;
+}
+
+.p-card:hover .tag {
+    border-color: var(--accent);
+}
+
+.p-title {
+    font-size: 1.4rem; 
+    font-weight: 700; 
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.p-desc {
+    color: var(--text-muted); 
+    margin-bottom: 20px; 
+    font-size: 0.95rem; 
+    line-height: 1.6;
+    flex-grow: 1; /* Pushes button to bottom */
+}
+
+.p-btn-group {
+    display: flex; gap: 10px; margin-top: auto;
+}
+/* ================= CERTIFICATES (IMAGES) ================= */
+.cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.cert-card {
+    background: var(--card-bg); padding: 15px; border-radius: 15px; border: var(--border);
+    transition: 0.3s;
+}
+.cert-card:hover { border-color: var(--accent); transform: scale(1.02); }
+.cert-img {
+    width: 100%; height: 200px; border-radius: 10px; overflow: hidden; position: relative; margin-bottom: 15px;
+}
+.cert-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+.cert-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: 0.3s;
+}
+.cert-card:hover .cert-overlay { opacity: 1; }
+.cert-card:hover img { transform: scale(1.1); }
+.view-btn {
+    padding: 8px 20px; background: white; color: black; border-radius: 20px;
+    text-decoration: none; font-weight: 600;
+}
+
+/* ================= CONTACT ================= */
+.contact-container {
+    max-width: 600px; margin: auto; background: var(--card-bg); padding: 40px; border-radius: 20px; border: var(--border);
+}
+input, textarea {
+    width: 100%; padding: 15px; background: rgba(125,125,125,0.05); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text-main); margin-bottom: 20px; outline: none; transition: 0.3s;
+}
+input:focus, textarea:focus { border-color: var(--accent); background: transparent; }
+
+/* Footer */
+footer { text-align: center; padding: 40px; color: var(--text-muted); border-top: var(--border); margin-top: 50px; }
+
+/* Responsive */
+@media(max-width: 900px){
+    .hero { flex-direction: column-reverse; text-align: center; padding-top: 100px; }
+    .nav-links { display: none; }
+    .roadmap::before, .roadmap::after { left: 20px; }
+    .roadmap-dot { left: 12px; }
+    .roadmap-content { margin-left: 50px; }
+}
+
+/* =========================================
+   2. JOURNEY GRID LAYOUT
+   ========================================= */
+
+/* Main Grid Container */
+.journey-grid {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+/* Columns (Experience / Education) */
+.journey-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Column Headers (Experience / Education Titles) */
+.column-title {
+    font-size: 1.75rem;
+    margin-bottom: 25px;
+    color: var(--accent-color); /* Adaptive Color */
+    border-bottom: 2px solid var(--line-color);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* =========================================
+   3. ROADMAP ITEM STYLING
+   ========================================= */
+
+.roadmap-item {
+    position: relative;
+    padding-left: 30px; /* Space for the line/dot */
+    margin-bottom: 30px;
+    border-left: 2px solid var(--line-color); /* The vertical timeline line */
+}
+
+/* The Dot on the timeline */
+.roadmap-dot {
+    position: absolute;
+    left: -6px; /* Center dot on the line */
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    border: 2px solid var(--bg-body); /* Creates a 'cutout' effect */
+}
+
+/* The Content Box (Card) */
+.roadmap-content {
+    background-color: var(--card-bg); /* Adaptive Background */
+    border: 1px solid var(--card-border);
+    padding: 15px 20px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.roadmap-content:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+/* Text Styling */
+.r-date {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.r-title {
+    font-size: 1.2rem;
+    color: var(--text-main); /* Adaptive Text */
+    margin: 5px 0;
+}
+
+.r-org {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.roadmap-content p {
+    color: var(--text-muted); /* Adaptive Muted Text */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* =========================================
+   4. MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 768px) {
+    .journey-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .journey-column {
+        width: 100%;
+    }
+}
+/* =========================================
+   1. THEME VARIABLES (Light & Dark Support)
+   ========================================= */
+:root {
+    /* Default (Light Mode) */
+    --bg-body: #ffffff;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --card-bg: #f9f9f9;
+    --card-border: #e0e0e0;
+    --accent-color: #007bff; /* Change this to your main brand color */
+    --line-color: #ddd;
+}
+
+/* Dark Mode Overrides */
+/* Add class="dark-mode" to your <body> tag to activate this */
+body.dark-mode {
+    --bg-body: #121212;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --card-bg: #1e1e1e;
+    --card-border: #333333;
+    --accent-color: #4dabf7;
+    --line-color: #333;
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+    <div class="logo">Madhukar Pal</div>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="theme-toggle" id="theme-btn"><i class="fas fa-moon"></i></div>
+</nav>
+
+<section id="about" class="hero">
+    <div class="hero-content">
+        <h1>Hi, I'm <span>Madhukar Pal</span></h1>
+        <div style="font-size:1.5rem; color:var(--text-muted); margin-bottom:20px;">
+            I am a <span class="typing"></span>
+        </div>
+        <p>
+            Building high-performance web applications and Android tools. 
+            Passionate about Automation, Clean Code, and UI/UX Design.
+        </p>
+        <div style="display:flex; gap:15px; margin-top:30px;">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="https://www.overleaf.com/download/project/695e9a74a0f4b4737e5685a9/build/19b998f3e5e-be68d0d38aa7e485/output/output.pdf?compileGroup=standard&clsiserverid=clsi-pre-emp-c3d-c-f-79p4&enable_pdf_caching=true&popupDownload=true" class="btn btn-outline">Resume</a>
+        </div>
+    </div>
+    <div class="hero-img-box">
+        <img src="https://i.postimg.cc/05BP37cG/7b3b3b58-e3bb-4c55-a74d-5389d4569c31-1-all-2547-removebg-preview.png" alt="Profile">
+    </div>
+</section>
+
+<section id="skills" class="reveal">
+    <h2 class="section-title"><span>Technical Skills</span></h2>
+    <div class="skills-grid">
+        
+        <div class="skill-box">
+            <h3><i class="fas fa-code"></i> Programming Languages</h3>
+            <div class="tech-container">
+                <div class="tech-item"><i class="devicon-python-plain colored"></i><span>Python</span></div>
+                <div class="tech-item"><i class="devicon-java-plain colored"></i><span>Java</span></div>
+                <div class="tech-item"><i class="devicon-cplusplus-plain colored"></i><span>C++</span></div>
+                <div class="tech-item"><i class="devicon-kotlin-plain colored"></i><span>Kotlin</span></div>
+                <div class="tech-item"><i class="devicon-c-plain colored"></i><span>C</span></div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <h3><i class="fas fa-laptop-code"></i> Development</h3>
+            <div class="tech-container">
+                <div class="tech-item"><i class="devicon-html5-plain colored"></i><span>HTML</span></div>
+                <div class="tech-item"><i class="devicon-css3-plain colored"></i><span>CSS</span></div>
+                <div class="tech-item"><i class="devicon-javascript-plain colored"></i><span>JS</span></div>
+                <div class="tech-item"><i class="devicon-xml-plain colored"></i><span>XML</span></div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+            <div class="tech-container">
+                <div class="tech-item"><i class="devicon-git-plain colored"></i><span>Git</span></div>
+                <div class="tech-item"><i class="devicon-github-original colored"></i><span>GitHub</span></div>
+                <div class="tech-item"><i class="devicon-android-plain colored"></i><span>Android</span></div>
+                <div class="tech-item"><i class="devicon-vscode-plain colored"></i><span>VS Code</span></div>
+                <div class="tech-item"><i class="fas fa-robot" style="color:var(--accent)"></i><span>AI</span></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="journey" class="reveal">
+    <h2 class="section-title"><span>My Journey</span></h2>
+    
+    <div class="journey-grid">
+        
+        <div class="journey-column">
+            <h3 class="column-title">Experience</h3>
+            <div class="roadmap">
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <span class="r-date">Jan 2026 - Present</span>
+                        <h3 class="r-title">Python Developer Intern</h3>
+                        <span class="r-org">Alfido Tech (Remote)</span>
+                        <p style="color:var(--text-muted)">
+                            Developing automation scripts to streamline workflows. Debugging complex software modules and collaborating with the team via GitHub.
+                        </p>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+
+        <div class="journey-column">
+            <h3 class="column-title">Education</h3>
+            <div class="roadmap">
+                
+                <div class="roadmap-item">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <span class="r-date">2025 - 2029</span>
+                        <h3 class="r-title">B.Tech Computer Science</h3>
+                        <span class="r-org">COER University</span>
+                        <p style="color:var(--text-muted)">
+                            Pursuing undergrad with a focus on Software Engineering, Data Structures, and Web Technologies.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="roadmap-item">
+                    <div class="roadmap-dot"></div>
+                    <div class="roadmap-content">
+                        <span class="r-date">Completed</span>
+                        <h3 class="r-title">Intermediate & High School</h3>
+                        <span class="r-org">UBSE Board</span>
+                        <p style="color:var(--text-muted)">
+                            Completed foundational education with a focus on Science and Mathematics.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="projects" class="reveal">
+    <h2 class="section-title"><span>Featured Projects</span></h2>
+    <div class="project-grid">
+        
+        <div class="p-card">
+            <div class="p-icon"><i class=""></i> Tool</div>
+            <div class="p-img-box">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQEr_u3fU6pSmQ/profile-treasury-image-shrink_800_800/B4DZpomQ7LIgAY-/0/1762691453346?e=1768410000&v=beta&t=Sh1B40X0MwUpgsCkqsjVIwGgPN8bsmT_j1hlOGKLoPQ" alt="Paperink">
+            </div>
+            <div class="p-details">
+                <div class="p-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+                <h3 class="p-title">Paperink</h3>
+                <p class="p-desc">
+                    An advanced Text-to-Handwriting converter. It utilizes AI to convert digital documents into realistic human-like handwritten pages, useful for assignments and notes.
+                </p>
+                <div class="p-btn-group">
+                    <a href="https://github.com/Madhukar2006/Paperink" target="_blank" class="btn btn-primary" style="padding:8px 20px; font-size:0.85rem;">
+                        <i class="fab fa-github"></i> GitHub
+                                            </a>
+                    <a href="https://paperink.netlify.app/" title="PI" target="_blank" rel="noopener" class="btn btn-outline" style="padding:8px 20px; font-size:0.85rem;">
+                        <i class="fas fa-external-link-alt"></i> Website
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-card">
+            <div class="p-icon"><i class=""></i>App</div>
+            <div class="p-img-box">
+                <img src="https://i.postimg.cc/NF4Hb5kq/Chat-GPT-Image-Jan-7-2026-09-34-03-PM.png" alt="Compiler">
+            </div>
+            <div class="p-details">
+                <div class="p-tags">
+                    <span class="tag">Android</span>
+                    <span class="tag">Java</span>
+                    <span class="tag">XML</span>
+                </div>
+                <h3 class="p-title">Web Compiler App</h3>
+                <p class="p-desc">
+                    A fully functional mobile IDE allowing users to write, run, and debug HTML, CSS, and JavaScript code instantly on Android devices.
+                </p>
+                <div class="p-btn-group">
+                    <a href="https://github.com/Madhukar2006/WebCompiler" target="_blank" class="btn btn-primary" style="padding:8px 20px; font-size:0.85rem;">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-card">
+            <div class="p-icon"><i class=""></i> WebSite </div>
+            <div class="p-img-box">
+                <img src="https://media.licdn.com/dms/image/v2/D4D22AQHVVwPrn4x49Q/feedshare-shrink_1280/B4DZm.6iKqIgAw-/0/1759844641322?e=1769644800&v=beta&t=U9YW8mmwn1FX8WStA3q0iycmltEhs5R3Om197UAgTRk" alt="HealthConnect">
+            </div>
+            <div class="p-details">
+                <div class="p-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+                <h3 class="p-title">HealthConnect</h3>
+                <p class="p-desc">
+                    A secure digital platform for managing patient health records. Focuses on data privacy, quick retrieval of history, and doctor-patient connectivity.
+                </p>
+                <div class="p-btn-group">
+                    <a href="https://github.com/Madhukar2006/HealthConnect" target="_blank" class="btn btn-primary" style="padding:8px 20px; font-size:0.85rem;">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="p-card">
+            <div class="p-icon"><i class=""></i> WebSite </div>
+            <div class="p-img-box">
+                <img src="https://i.postimg.cc/7b8h0zR3/Screenshot-2026-01-07-225030.png" alt="HealthConnect">
+            </div>
+            <div class="p-details">
+                <div class="p-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+                <h3 class="p-title">OtakuGang</h3>
+                <p class="p-desc">
+                    A secure digital platform for managing patient health records. Focuses on data privacy, quick retrieval of history, and doctor-patient connectivity.
+                </p>
+                <div class="p-btn-group">
+                    <a href="https://github.com/Madhukar2006/OtakuGang" target="_blank" class="btn btn-primary" style="padding:8px 20px; font-size:0.85rem;">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://otakugang.netlify.app/" title="https://otakugang.netlify.app/" target="_blank" rel="noopener" class="btn btn-outline" style="padding:8px 20px; font-size:0.85rem;">
+                        <i class="fas fa-external-link-alt"></i> Website
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<section id="certificates" class="reveal">
+    <h2 class="section-title"><span>Certifications</span></h2>
+    <div class="cert-grid">
+        <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQHVCEj73w7pZQ/profile-treasury-image-shrink_800_800/B4DZqdUVVrJAAY-/0/1763575956633?e=1768410000&v=beta&t=WFGvardlfapTjhI-fijIiq077sLQaugjGp5IH9tvyBc" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4>Manthan'25 National Hackathon 5.0</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Manthan / COER </p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQERJfae1z1XTg/profile-treasury-image-shrink_800_800/B4DZrPa0isGsAY-/0/1764416527843?e=1768410000&v=beta&t=IXHfV8qcarKID3uztY8-cEokjP0aLUxhR3578bNk00I" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4>Internal Hackathon 8.0</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">COER University</p>
+        </div>
+        <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQHkF7TePQYXkQ/profile-treasury-image-shrink_800_800/B4DZqzTx2uGkAc-/0/1763944906991?e=1768410000&v=beta&t=aDtu-pQ4mSQXgL5Wl9KRAUjWReoKmhLO0LJu01RtbZc" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4>Demystifying Myths about Homeopathy</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;"> COER / CSE</p>
+        </div>
+                <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQHYnCS8OzLxag/profile-treasury-image-shrink_800_800/B4DZpz8ZtxKUAc-/0/1762881807172?e=1768413600&v=beta&t=UwadFnLFJqxYiuuazgwyIGMCBjTr1ZHLthiOqlDwTAk" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4> Gemini Certified University Student </h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Google</p>
+        </div>
+                <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQHKNp2ug05yhQ/profile-treasury-image-shrink_800_800/B4DZqSiNm6IMAY-/0/1763395036676?e=1768413600&v=beta&t=S-tKXwHhNR7bxrmOqmjGRc8hov3ka3M3AizWFbrrPck" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4>Walmart USA - Advanced Software Engineering Job Simulation</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Foragr / Walmart</p>
+        </div>
+                <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQGCxGMPFTm-gw/profile-treasury-image-shrink_800_800/B4DZqXe_CPIAAY-/0/1763478176208?e=1768413600&v=beta&t=sZzne5TUlWlaO3ceaIA_-9BgqCKe8aRwOiHXWvhO6VI" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4>What Is Generative AI?</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">LinkedIn</p>
+        </div>
+                <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQHL_JoeUd1DaA/profile-treasury-image-shrink_800_800/B4DZqX5pyNIgAY-/0/1763485066119?e=1768413600&v=beta&t=HYPCCQg_JxTX_3Em4bbdlrBH7vTSJvAnIrD6OW78FqQ" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4> Brain Byte Quiz 13</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">COER University</p>
+        </div>
+                <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQFq-f6Y_LEgcA/profile-treasury-image-shrink_800_800/B4DZqSjWc5IEAY-/0/1763395332977?e=1768413600&v=beta&t=sWuG_7jWG1zYSl6n19u3QaMcA9vNG63tcgly2E_0W6s" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4>Deloitte Australia - Technology Job Simulation</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Deloitte</p>
+        </div>
+                <div class="cert-card">
+            <div class="cert-img">
+                <img src="https://media.licdn.com/dms/image/v2/D4D2DAQG-wVq048PgFg/profile-treasury-image-shrink_800_800/B4DZqX8POPGkAY-/0/1763485742621?e=1768413600&v=beta&t=or5qC4kuWgCDnw_O7Ok1m6T2WLQrJg1_Ryq7snD9Q_M" alt="Cert">
+                <div class="cert-overlay"><a href="#" class="view-btn">View</a></div>
+            </div>
+            <h4>Python Course for Beginners With Certification: Mastering the Essentials</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Scaler</p>
+        </div>
+ 
+    </div>
+</section>
+
+<section id="contact" class="reveal">
+    <h2 class="section-title"><span>Contact Me</span></h2>
+    <div class="contact-container">
+        <form action="mailto:madhukar639563@outlook.com">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message"></textarea>
+            <button type="submit" class="btn btn-primary" style="width:100%">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Madhukar. Built with Code.</p>
+</footer>
+
+<script>
+    /* 1. TYPING */
+    const words=["Developer","Student","Tech Enthusiast"];
+    let i=0,j=0;
+    setInterval(()=>{
+        document.querySelector(".typing").textContent=words[i].slice(0,++j);
+        if(j>words[i].length){i=(i+1)%words.length;j=0}
+    },200);
+
+    /* 2. THEME TOGGLE (UPDATED FOR LIGHT DEFAULT) */
+    const tBtn=document.getElementById('theme-btn');
+    // We check if the body has 'dark' set. If not, it's light.
+    tBtn.addEventListener('click',()=>{
+        const isDark = document.body.dataset.theme === 'dark';
+        document.body.dataset.theme = isDark ? 'light' : 'dark';
+        
+        // Toggle icons: Moon (for light mode) vs Sun (for dark mode)
+        tBtn.querySelector('i').classList.toggle('fa-sun');
+        tBtn.querySelector('i').classList.toggle('fa-moon');
+    });
+
+    /* 3. SCROLL REVEAL */
+    const obs=new IntersectionObserver(e=>{e.forEach(x=>x.isIntersecting&&x.target.classList.add("active"))});
+    document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+    /* 4. CANVAS NEURAL SWARM */
+    const c=document.getElementById("bg-canvas"), x=c.getContext("2d");
+    let w,h,p=[], m={x:null,y:null};
+    
+    window.onresize=init; window.onmousemove=e=>{m.x=e.clientX;m.y=e.clientY};
+    
+    function init(){
+        w=c.width=window.innerWidth; h=c.height=window.innerHeight;
+        p=[]; 
+        for(let i=0;i<90;i++) p.push({x:Math.random()*w,y:Math.random()*h,vx:Math.random()-.5,vy:Math.random()-.5});
+    }
+
+    function anim(){
+        x.clearRect(0,0,w,h);
+        p.forEach(o=>{
+            o.x+=o.vx; o.y+=o.vy;
+            if(o.x<0||o.x>w)o.vx*=-1; if(o.y<0||o.y>h)o.vy*=-1;
+            
+            x.beginPath(); x.arc(o.x,o.y,2,0,7); 
+            
+            // LOGIC UPDATED: Default is Light Mode colors (#4f46e5), Dark Mode is white/faded
+            const isDark = document.body.dataset.theme === 'dark';
+            x.fillStyle = isDark ? "rgba(255,255,255,.5)" : "#4f46e5"; 
+            x.fill();
+            
+            if(m.x){
+                let dx=o.x-m.x, dy=o.y-m.y, d=Math.sqrt(dx*dx+dy*dy);
+                if(d<150){
+                    x.beginPath(); x.moveTo(o.x,o.y); x.lineTo(m.x,m.y);
+                    // LOGIC UPDATED: Default stroke is Blue (Light mode), Dark mode is Violet
+                    x.strokeStyle = isDark ? `rgba(99,102,241,${1-d/150})` : `rgba(79,70,229,${1-d/150})`;
+                    x.stroke();
+                    o.x-=dx*0.02; o.y-=dy*0.02; 
+                }
+            }
+        });
+        requestAnimationFrame(anim);
+    }
+    init(); anim();
+</script>
+
+</body>
+</html>
