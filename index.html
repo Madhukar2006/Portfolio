@@ -481,6 +481,126 @@ body.dark-mode {
     --accent-color: #4dabf7;
     --line-color: #333;
 }
+
+    /* ================= NEW CONTACT SECTION ================= */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Info takes less space, Form takes more */
+    gap: 40px;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    border: var(--border);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    max-width: 1000px; /* Wider container */
+    margin: auto;
+}
+
+/* LEFT SIDE: INFO */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contact-info h3 {
+    font-size: 1.8rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.contact-desc {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.info-icon {
+    width: 45px;
+    height: 45px;
+    background: var(--accent-glow);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.info-item:hover .info-icon {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.1);
+}
+
+.info-text h4 {
+    font-size: 1rem;
+    color: var(--text-main);
+}
+.info-text p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* SOCIAL LINKS ROW */
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.social-btn {
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.social-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* RIGHT SIDE: FORM */
+.contact-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr; /* Stack on mobile */
+    }
+    .form-group {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 </head>
 <body>
@@ -800,14 +920,61 @@ body.dark-mode {
 </section>
 
 <section id="contact" class="reveal">
-    <h2 class="section-title"><span>Contact Me</span></h2>
-    <div class="contact-container">
-        <form action="mailto:madhukar639563@outlook.com">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message"></textarea>
-            <button type="submit" class="btn btn-primary" style="width:100%">Send Message</button>
-        </form>
+    <h2 class="section-title"><span>Get In Touch</span></h2>
+    
+    <div class="contact-wrapper">
+        
+        <div class="contact-info">
+            <div>
+                <h3>Let's Talk</h3>
+                <p class="contact-desc">
+                    I'm currently open to internship opportunities and freelance projects. 
+                    Have a question or just want to say hi? Drop me a message!
+                </p>
+                
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="info-text">
+                        <h4>Email</h4>
+                        <p>madhukar639563@outlook.com</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="info-text">
+                        <h4>Location</h4>
+                        <p>Uttarakhand, India</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p style="color:var(--text-main); font-weight:600;">Follow Me:</p>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/Madhukar2006" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" class="social-btn"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <form action="mailto:madhukar639563@outlook.com" method="post" enctype="text/plain">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <input type="text" name="subject" placeholder="Subject">
+                <textarea name="message" rows="6" placeholder="Your Message..." required></textarea>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+
     </div>
 </section>
 
@@ -969,4 +1136,5 @@ body.dark-mode {
 
 </body>
 </html>
+
 
