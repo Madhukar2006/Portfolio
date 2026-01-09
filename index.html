@@ -816,70 +816,157 @@ body.dark-mode {
 </footer>
 
 <script>
-    /* 1. TYPING */
-    const words=["Developer","Student","Tech Enthusiast"];
-    let i=0,j=0;
-    setInterval(()=>{
-        document.querySelector(".typing").textContent=words[i].slice(0,++j);
-        if(j>words[i].length){i=(i+1)%words.length;j=0}
-    },200);
+    /* 1. TYPING ANIMATION */
+    const words = ["Developer", "Student", "Tech Enthusiast"];
+    let i = 0, j = 0;
+    let currentWord = "";
+    let isDeleting = false;
 
-    /* 2. THEME TOGGLE (UPDATED FOR LIGHT DEFAULT) */
-    const tBtn=document.getElementById('theme-btn');
-    // We check if the body has 'dark' set. If not, it's light.
-    tBtn.addEventListener('click',()=>{
+    function type() {
+        currentWord = words[i];
+        if (isDeleting) {
+            document.querySelector(".typing").textContent = currentWord.substring(0, j - 1);
+            j--;
+            if (j == 0) {
+                isDeleting = false;
+                i = (i + 1) % words.length;
+            }
+        } else {
+            document.querySelector(".typing").textContent = currentWord.substring(0, j + 1);
+            j++;
+            if (j == currentWord.length) {
+                isDeleting = true;
+            }
+        }
+        setTimeout(type, isDeleting ? 100 : 200);
+    }
+    type();
+
+    /* 2. THEME TOGGLE */
+    const tBtn = document.getElementById('theme-btn');
+    tBtn.addEventListener('click', () => {
         const isDark = document.body.dataset.theme === 'dark';
         document.body.dataset.theme = isDark ? 'light' : 'dark';
-        
-        // Toggle icons: Moon (for light mode) vs Sun (for dark mode)
         tBtn.querySelector('i').classList.toggle('fa-sun');
         tBtn.querySelector('i').classList.toggle('fa-moon');
     });
 
     /* 3. SCROLL REVEAL */
-    const obs=new IntersectionObserver(e=>{e.forEach(x=>x.isIntersecting&&x.target.classList.add("active"))});
-    document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+    const obs = new IntersectionObserver(e => {
+        e.forEach(x => x.isIntersecting && x.target.classList.add("active"))
+    });
+    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
 
-    /* 4. CANVAS NEURAL SWARM */
-    const c=document.getElementById("bg-canvas"), x=c.getContext("2d");
-    let w,h,p=[], m={x:null,y:null};
+    /* 4. ENHANCED CANVAS ANIMATION */
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    let w, h, particles = [];
     
-    window.onresize=init; window.onmousemove=e=>{m.x=e.clientX;m.y=e.clientY};
-    
-    function init(){
-        w=c.width=window.innerWidth; h=c.height=window.innerHeight;
-        p=[]; 
-        for(let i=0;i<90;i++) p.push({x:Math.random()*w,y:Math.random()*h,vx:Math.random()-.5,vy:Math.random()-.5});
+    // Mouse object with interaction radius
+    let mouse = { x: null, y: null, radius: 150 };
+
+    window.addEventListener('resize', init);
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+    // Reset mouse when leaving window so particles don't get stuck
+    window.addEventListener('mouseout', () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+    });
+
+    function init() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+        particles = [];
+        
+        // Number of particles based on screen size
+        let numberOfParticles = (w * h) / 9000;
+        
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 2) + 1;
+            let x = Math.random() * (w - size * 2) + size * 2;
+            let y = Math.random() * (h - size * 2) + size * 2;
+            let directionX = (Math.random() * 2) - 1; // Speed
+            let directionY = (Math.random() * 2) - 1;
+            
+            particles.push({x, y, directionX, directionY, size, baseSize: size});
+        }
     }
 
-    function anim(){
-        x.clearRect(0,0,w,h);
-        p.forEach(o=>{
-            o.x+=o.vx; o.y+=o.vy;
-            if(o.x<0||o.x>w)o.vx*=-1; if(o.y<0||o.y>h)o.vy*=-1;
-            
-            x.beginPath(); x.arc(o.x,o.y,2,0,7); 
-            
-            // LOGIC UPDATED: Default is Light Mode colors (#4f46e5), Dark Mode is white/faded
-            const isDark = document.body.dataset.theme === 'dark';
-            x.fillStyle = isDark ? "rgba(255,255,255,.5)" : "#4f46e5"; 
-            x.fill();
-            
-            if(m.x){
-                let dx=o.x-m.x, dy=o.y-m.y, d=Math.sqrt(dx*dx+dy*dy);
-                if(d<150){
-                    x.beginPath(); x.moveTo(o.x,o.y); x.lineTo(m.x,m.y);
-                    // LOGIC UPDATED: Default stroke is Blue (Light mode), Dark mode is Violet
-                    x.strokeStyle = isDark ? `rgba(99,102,241,${1-d/150})` : `rgba(79,70,229,${1-d/150})`;
-                    x.stroke();
-                    o.x-=dx*0.02; o.y-=dy*0.02; 
+    function connect() {
+        let opacityValue = 1;
+        for (let a = 0; a < particles.length; a++) {
+            for (let b = a; b < particles.length; b++) {
+                let dx = particles[a].x - particles[b].x;
+                let dy = particles[a].y - particles[b].y;
+                let distance = dx * dx + dy * dy;
+
+                // Connect particles if close (distance squared < 3600 is approx 60px)
+                if (distance < 3600) {
+                    opacityValue = 1 - (distance / 3600);
+                    const isDark = document.body.dataset.theme === 'dark';
+                    ctx.strokeStyle = isDark ? `rgba(255,255,255,${opacityValue})` : `rgba(79, 70, 229,${opacityValue})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[a].x, particles[a].y);
+                    ctx.lineTo(particles[b].x, particles[b].y);
+                    ctx.stroke();
                 }
             }
-        });
-        requestAnimationFrame(anim);
+        }
     }
-    init(); anim();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, w, h);
+
+        particles.forEach(p => {
+            // Move particles
+            p.x += p.directionX;
+            p.y += p.directionY;
+
+            // Wall collision (bounce)
+            if (p.x > w || p.x < 0) p.directionX = -p.directionX;
+            if (p.y > h || p.y < 0) p.directionY = -p.directionY;
+
+            // MOUSE INTERACTION
+            let dx = mouse.x - p.x;
+            let dy = mouse.y - p.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < mouse.radius) {
+                // 1. Force Field Effect (Repulsion)
+                // If mouse is close, push particle away
+                if (mouse.x < p.x && p.x < w - p.size * 10) p.x += 3;
+                if (mouse.x > p.x && p.x > p.size * 10) p.x -= 3;
+                if (mouse.y < p.y && p.y < h - p.size * 10) p.y += 3;
+                if (mouse.y > p.y && p.y > p.size * 10) p.y -= 3;
+                
+                // 2. Dynamic Size Increase
+                if (p.size < 5) p.size += 0.5; // Grow
+            } else {
+                // Shrink back to normal
+                if (p.size > p.baseSize) p.size -= 0.1;
+            }
+
+            // Draw Particle
+            const isDark = document.body.dataset.theme === 'dark';
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = isDark ? "rgba(255,255,255,0.8)" : "#4f46e5";
+            ctx.fill();
+        });
+        
+        // Draw lines between particles
+        connect();
+    }
+
+    init();
+    animate();
 </script>
 
 </body>
 </html>
+
