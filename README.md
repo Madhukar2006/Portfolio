@@ -12,7 +12,7 @@ Hi, I’m Madhukar, a B.Tech CSE student with a strong interest in web developme
 🛠️ Tech Stack  
     
 HTML5 – Structure and content   
-
+  
 CSS3 – Styling, layout, and animations
 
 JavaScript – Interactivity and logic
