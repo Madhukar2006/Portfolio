@@ -16,7 +16,7 @@ HTML5 – Structure and content
 CSS3 – Styling, layout, and animations
 
 JavaScript – Interactivity and logic
-
+   
 Git & GitHub – Version control and hosting
 
 ✨ Features
