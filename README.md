@@ -7,7 +7,7 @@ https://madhukar2006.github.io/Portfolio/
 
 👋 About Me
 
-Hi, I’m Madhukar, a B.Tech CSE student with a strong interest in web development, programming, and building real-world projects. I enjoy turning ideas into interactive web experiences and continuously improving my skills.
+Hi, I’m Madhukar, a B.Tech CSE student with a strong interest in web development, programming, and building real-world projects. I enjoy turning ideas into interactive web experiences and continuously improving my skills. 
   
 🛠️ Tech Stack  
     
