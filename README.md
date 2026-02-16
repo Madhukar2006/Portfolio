@@ -17,7 +17,7 @@ CSS3 – Styling, layout, and animations
 
 JavaScript – Interactivity and logic
    
-Git & GitHub – Version control and hosting
+Git & GitHub – Version control and hosting  
 
 ✨ Features
 
