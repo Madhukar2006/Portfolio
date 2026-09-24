@@ -29,6 +29,4 @@ Skills section with icons
 
 Project showcase with descriptions
 
-About and contact sections
-
 Smooth animations and transitions
