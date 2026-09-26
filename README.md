@@ -66,8 +66,8 @@ A Minecraft community and SMP server with a dedicated Discord community.
 
 ## 🤝 Connect With Me
 
-- 💼 LinkedIn: [Madhukar Pal](https://www.linkedin.com/)
-- 🌐 Portfolio: [madhukar2006.github.io/Portfolio](https://madhukar2006.github.io/Portfolio/)
+- 💼 LinkedIn: [Madhukar Pal](https://www.linkedin.com/in/madhukar2006/)
+- 🌐 Portfolio: [Madhukar.online](hhttps://www.madhukar.online/)
 - 💻 GitHub: [@Madhukar2006](https://github.com/Madhukar2006)
 
 ---
