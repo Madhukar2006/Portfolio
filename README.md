@@ -55,15 +55,6 @@ A Minecraft community and SMP server with a dedicated Discord community.
 
 ---
 
-## 📊 GitHub
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Madhukar2006&show_icons=true&theme=tokyonight&hide_border=true" height="165">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Madhukar2006&theme=tokyonight&hide_border=true" height="165">
-</p>
-
----
-
 ## 🤝 Connect With Me
 
 - 💼 LinkedIn: [Madhukar Pal](https://www.linkedin.com/in/madhukar2006/)
