@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madhukar — Coming Soon</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap');
+
+  :root{
+    --bg: #0B0D12;
+    --bg-soft: #12151C;
+    --violet: #8B7FE8;
+    --teal: #45D6C4;
+    --text: #E9E7F2;
+    --muted: #7A8090;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html,body{
+    height:100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow:hidden;
+  }
+
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding: 24px;
+  }
+
+  .glow{
+    position:absolute;
+    width: 600px;
+    height: 600px;
+    border-radius:50%;
+    background: radial-gradient(circle, rgba(139,127,232,0.16), transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    filter: blur(10px);
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse{
+    0%,100%{ opacity:.6; transform: translate(-50%,-50%) scale(1); }
+    50%{ opacity:1; transform: translate(-50%,-50%) scale(1.08); }
+  }
+
+  .card{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width: 560px;
+  }
+
+  .tag{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 13px;
+    color: var(--teal);
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+  }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  h1 span{
+    color: var(--violet);
+  }
+
+  .status{
+    margin-top: 22px;
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .status strong{
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .typed{
+    margin-top: 28px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    min-height: 22px;
+  }
+
+  .cursor{
+    display:inline-block;
+    width: 2px;
+    height: 15px;
+    background: var(--teal);
+    margin-left: 3px;
+    vertical-align: -2px;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .links{
+    margin-top: 40px;
+    display:flex;
+    gap: 20px;
+    justify-content:center;
+  }
+
+  .links a{
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration:none;
+    border-bottom: 1px solid transparent;
+    transition: color .2s ease, border-color .2s ease;
+  }
+
+  .links a:hover, .links a:focus-visible{
+    color: var(--teal);
+    border-color: var(--teal);
+  }
+
+  footer{
+    position:absolute;
+    bottom: 24px;
+    left:0; right:0;
+    text-align:center;
+    font-size: 12px;
+    color: #3E4250;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .glow{ animation: none; }
+    .cursor{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="glow"></div>
+
+  <div class="card">
+    <div class="tag">// PORTFOLIO BUILD IN PROGRESS</div>
+    <h1>Madhu<span>kar</span></h1>
+    <p class="status">Developer, builder, occasional game and anime enthusiast.<br>
+      <strong>Full site is compiling.</strong> Check back soon.</p>
+    <p class="typed" id="typed"><span class="cursor"></span></p>
+
+    <div class="links">
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      <a href="#" target="_blank" rel="noopener">Discord</a>
+      <a href="mailto:you@example.com">Email</a>
+    </div>
+  </div>
+
+  <footer>&copy; 2026 Madhukar — all rights reserved</footer>
+
+<script>
+  const lines = [
+    "building web apps and AI tools...",
+    "founder @ OtakuGang...",
+    "B.Tech CSE @ COER University...",
+    "status: shipping soon."
+  ];
+  const el = document.getElementById('typed');
+  const cursor = el.querySelector('.cursor');
+  let li = 0, ci = 0, deleting = false;
+
+  function tick(){
+    const current = lines[li];
+    if(!deleting){
+      ci++;
+      if(ci > current.length){
+        deleting = true;
+        setTimeout(tick, 1400);
+        return;
+      }
+    } else {
+      ci--;
+      if(ci < 0){
+        deleting = false;
+        li = (li + 1) % lines.length;
+        ci = 0;
+      }
+    }
+    el.firstChild ? el.textContent = current.slice(0, ci) : null;
+    el.textContent = current.slice(0, ci);
+    el.appendChild(cursor);
+    setTimeout(tick, deleting ? 35 : 55);
+  }
+  tick();
+</script>
+
+</body>
+</html>
