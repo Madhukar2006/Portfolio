@@ -1,218 +1,282 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Madhukar — Coming Soon</title>
+  <title>Madhukar — Developer Portfolio</title>
 
-<!-- Favicon / Browser Tab Logo -->
-<link rel="icon" type="image/png" href="./Logo.png">
-<link rel="shortcut icon" type="image/png" href="./Logo.png">
-<link rel="apple-touch-icon" href="./Logo.png">
-<!-- Search Engine / Social Preview -->
-<meta property="og:title" content="Madhukar — Developer Portfolio">
-<meta property="og:description" content="Developer, builder, and creator. Madhukar's personal portfolio.">
-<meta property="og:image"
-      content="https://raw.githubusercontent.com/Madhukar2006/Portfolio/main/Logo.png">
-<meta property="og:type" content="website">
+  <meta
+    name="description"
+    content="Madhukar's personal developer portfolio. Projects, skills, and creative work."
+  >
 
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Madhukar — Developer Portfolio">
-<meta name="twitter:description" content="Developer, builder, and creator.">
-<meta name="twitter:image"
-      content="https://raw.githubusercontent.com/Madhukar2006/Portfolio/main/Logo.png">
+  <meta name="author" content="Madhukar">
 
-<!-- Website Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Madhukar",
-  "url": "https://madhukar2006.github.io/Portfolio/",
-  "image": "https://raw.githubusercontent.com/Madhukar2006/Portfolio/main/Logo.png"
-}
-</script>
+  <!-- Favicon -->
+  <link rel="icon" href="./Logo.png?v=2" type="image/png">
+  <link rel="shortcut icon" href="./Logo.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="./Logo.png?v=2">
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap');
+  <!-- Open Graph -->
+  <meta property="og:title" content="Madhukar — Developer Portfolio">
+  <meta
+    property="og:description"
+    content="Developer, builder, and creator."
+  >
+  <meta property="og:type" content="website">
+  <meta
+    property="og:url"
+    content="https://madhukar2006.github.io/Portfolio/"
+  >
+  <meta
+    property="og:image"
+    content="https://madhukar2006.github.io/Portfolio/Logo.png"
+  >
 
-  :root{
-    --bg: #0B0D12;
-    --bg-soft: #12151C;
-    --violet: #8B7FE8;
-    --teal: #45D6C4;
-    --text: #E9E7F2;
-    --muted: #7A8090;
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Madhukar — Developer Portfolio">
+  <meta
+    name="twitter:description"
+    content="Developer, builder, and creator."
+  >
+  <meta
+    name="twitter:image"
+    content="https://madhukar2006.github.io/Portfolio/Logo.png"
+  >
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Madhukar",
+    "url": "https://madhukar2006.github.io/Portfolio/",
+    "image": "https://madhukar2006.github.io/Portfolio/Logo.png",
+    "sameAs": [
+      "https://github.com/Madhukar2006"
+    ]
   }
+  </script>
 
-  *{
-    box-sizing: border-box;
-    margin:0;
-    padding:0;
-  }
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap');
 
-  html,body{
-    height:100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    overflow:hidden;
-  }
-
-  body{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    padding:24px;
-  }
-
-  .glow{
-    position:absolute;
-    width:600px;
-    height:600px;
-    border-radius:50%;
-    background:radial-gradient(
-      circle,
-      rgba(139,127,232,0.16),
-      transparent 70%
-    );
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    filter:blur(10px);
-    animation:pulse 6s ease-in-out infinite;
-  }
-
-  @keyframes pulse{
-    0%,100%{
-      opacity:.6;
-      transform:translate(-50%,-50%) scale(1);
+    :root {
+      --bg: #0B0D12;
+      --violet: #8B7FE8;
+      --teal: #45D6C4;
+      --text: #E9E7F2;
+      --muted: #7A8090;
     }
 
-    50%{
-      opacity:1;
-      transform:translate(-50%,-50%) scale(1.08);
-    }
-  }
-
-  .card{
-    position:relative;
-    z-index:2;
-    text-align:center;
-    max-width:560px;
-  }
-
-  .tag{
-    font-family:'Space Grotesk',sans-serif;
-    font-size:13px;
-    color:var(--teal);
-    letter-spacing:.02em;
-    margin-bottom:18px;
-  }
-
-  h1{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
-    font-size:clamp(2.5rem,8vw,4.5rem);
-    line-height:1;
-    letter-spacing:-.02em;
-  }
-
-  h1 span{
-    color:var(--violet);
-  }
-
-  .status{
-    margin-top:22px;
-    font-size:16px;
-    color:var(--muted);
-    line-height:1.6;
-  }
-
-  .status strong{
-    color:var(--text);
-    font-weight:500;
-  }
-
-  .typed{
-    margin-top:28px;
-    font-family:'Space Grotesk',sans-serif;
-    font-size:15px;
-    color:var(--text);
-    min-height:22px;
-  }
-
-  .cursor{
-    display:inline-block;
-    width:2px;
-    height:15px;
-    background:var(--teal);
-    margin-left:3px;
-    vertical-align:-2px;
-    animation:blink 1s steps(1) infinite;
-  }
-
-  @keyframes blink{
-    50%{
-      opacity:0;
-    }
-  }
-
-  .links{
-    margin-top:40px;
-    display:flex;
-    gap:20px;
-    justify-content:center;
-  }
-
-  .links a{
-    font-size:14px;
-    color:var(--muted);
-    text-decoration:none;
-    border-bottom:1px solid transparent;
-    transition:
-      color .2s ease,
-      border-color .2s ease;
-  }
-
-  .links a:hover,
-  .links a:focus-visible{
-    color:var(--teal);
-    border-color:var(--teal);
-  }
-
-  footer{
-    position:absolute;
-    bottom:24px;
-    left:0;
-    right:0;
-    text-align:center;
-    font-size:12px;
-    color:#3E4250;
-  }
-
-  @media (prefers-reduced-motion:reduce){
-    .glow{
-      animation:none;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .cursor{
-      animation:none;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
     }
-  }
-</style>
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 24px;
+    }
+
+    /* Background Glow */
+    .glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(139, 127, 232, 0.16),
+        transparent 70%
+      );
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(10px);
+      animation: pulse 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    /* Main Content */
+    .card {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 560px;
+    }
+
+    .tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      color: var(--teal);
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    h1 span {
+      color: var(--violet);
+    }
+
+    .status {
+      margin-top: 22px;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .status strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Typing Text */
+    .typed {
+      margin-top: 28px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      min-height: 22px;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 15px;
+      background: var(--teal);
+      margin-left: 3px;
+      vertical-align: -2px;
+      animation: blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* Social Links */
+    .links {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .links a:hover,
+    .links a:focus-visible {
+      color: var(--teal);
+      border-color: var(--teal);
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: #3E4250;
+      z-index: 2;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
+      .glow {
+        width: 400px;
+        height: 400px;
+      }
+
+      .status {
+        font-size: 14px;
+      }
+
+      .typed {
+        font-size: 14px;
+      }
+
+      .links {
+        margin-top: 32px;
+      }
+
+      footer {
+        bottom: 18px;
+      }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      .glow,
+      .cursor {
+        animation: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
   <div class="glow"></div>
 
-  <div class="card">
+  <main class="card">
 
-    <div class="tag">// PORTFOLIO BUILD IN PROGRESS</div>
+    <div class="tag">
+      // PORTFOLIO BUILD IN PROGRESS
+    </div>
 
     <h1>
       Madhu<span>kar</span>
@@ -223,92 +287,90 @@
       <strong>Full site is compiling.</strong> Check back soon.
     </p>
 
-    <p class="typed" id="typed">
+    <p class="typed" id="typed" aria-live="polite">
       <span class="cursor"></span>
     </p>
 
-    <div class="links">
+    <nav class="links" aria-label="Social links">
+
       <a
         href="https://github.com/Madhukar2006"
         target="_blank"
-        rel="noopener">
+        rel="noopener noreferrer"
+      >
         GitHub
       </a>
 
       <a
         href="https://discord.gg/rJrxsmfudH"
         target="_blank"
-        rel="noopener">
+        rel="noopener noreferrer"
+      >
         Discord
       </a>
 
-      <a href="hello@madhukar.me">
+      <a href="mailto:hello@madhukar.me">
         Email
       </a>
-    </div>
 
-  </div>
+    </nav>
+
+  </main>
 
   <footer>
     &copy; 2026 Madhukar — all rights reserved
   </footer>
 
-<script>
-  const lines = [
-    "building web apps and AI tools...",
-    "founder @ OtakuGang...",
-    "B.Tech CSE @ COER University...",
-    "status: shipping soon."
-  ];
+  <script>
+    const lines = [
+      "building web apps and AI tools...",
+      "founder @ OtakuGang...",
+      "B.Tech CSE @ COER University...",
+      "status: shipping soon."
+    ];
 
-  const el = document.getElementById('typed');
-  const cursor = el.querySelector('.cursor');
+    const el = document.getElementById("typed");
+    const cursor = document.createElement("span");
 
-  let li = 0;
-  let ci = 0;
-  let deleting = false;
+    cursor.className = "cursor";
+    cursor.setAttribute("aria-hidden", "true");
 
-  function tick(){
+    let lineIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
 
-    const current = lines[li];
+    function tick() {
+      const currentLine = lines[lineIndex];
 
-    if(!deleting){
+      if (!deleting) {
+        charIndex++;
 
-      ci++;
+        if (charIndex > currentLine.length) {
+          deleting = true;
+          setTimeout(tick, 1400);
+          return;
+        }
+      } else {
+        charIndex--;
 
-      if(ci > current.length){
-
-        deleting = true;
-
-        setTimeout(tick, 1400);
-
-        return;
+        if (charIndex < 0) {
+          deleting = false;
+          lineIndex = (lineIndex + 1) % lines.length;
+          charIndex = 0;
+        }
       }
 
-    }else{
+      el.textContent = currentLine.slice(0, charIndex);
+      el.appendChild(cursor);
 
-      ci--;
-
-      if(ci < 0){
-
-        deleting = false;
-        li = (li + 1) % lines.length;
-        ci = 0;
-      }
+      setTimeout(
+        tick,
+        deleting ? 35 : 55
+      );
     }
 
-    el.textContent = current.slice(0, ci);
-    el.appendChild(cursor);
-
-    setTimeout(
-      tick,
-      deleting ? 35 : 55
-    );
-  }
-
-  tick();
-</script>
+    tick();
+  </script>
 
 </body>
 </html>
-```
